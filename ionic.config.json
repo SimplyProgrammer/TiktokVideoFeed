@@ -1,0 +1,7 @@
+{
+  "name": "videofeed",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

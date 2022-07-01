@@ -1,0 +1,17 @@
+@import "./tailwind.css";
+
+.ion-text {
+	color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.4)
+}
+
+.ion-border {
+	border-color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.4)
+}
+
+.ion-inner-p-0 {
+	--inner-padding-end: 0;
+}
+
+ion-tab-bar {
+    --color-selected: #000 !important;
+}
