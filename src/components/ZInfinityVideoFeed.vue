@@ -8,21 +8,21 @@
 				</video>
 				<ion-icon v-if="isActivePaused" :icon="icons.play" class="text-[#eee] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] opacity-50 text-[82px]" @click="toggleActive"></ion-icon>
 
-				<ion-icon :icon="video.muted ? icons.volumeMute : icons.volumeHigh" class="absolute top-[10%] left-4 bg-white rounded-full text-[34px] p-2 swiper-no-swiping" @click="toggleMuteActive(video)"></ion-icon>
-				<div class="flex flex-col items-center text-white absolute bottom-[10%] right-4 drop-shadow swiper-no-swiping">
-					<div class="flex flex-col items-center" @click="like(video)">
+				<ion-icon :icon="video.muted ? icons.volumeMute : icons.volumeHigh" class="absolute top-[10%] left-4 bg-white rounded-full text-[34px] p-2 drop-shadow swiper-no-swiping" @click="toggleMuteActive(video)"></ion-icon>
+				<div class="flex flex-col items-center text-white absolute bottom-[10%] right-4 swiper-no-swiping">
+					<div class="flex flex-col items-center drop-shadow" @click="like(video)">
 						<ion-icon :icon="icons.heart" class="text-[34px] p-2" :class="{liked: video.liked}"></ion-icon>
 						<p class="m-0">{{video.likes = video.likes == null ? 0 : video.likes}}</p>
 					</div>
-					<div class="flex flex-col items-center" @click="comment(video)">
+					<div class="flex flex-col items-center drop-shadow" @click="comment(video)">
 						<ion-icon :icon="icons.chatbubbleEll" class="text-[34px] p-2"></ion-icon>
 						<p class="m-0">{{video.comments = video.comments == null ? 0 : video.comments}}</p>
 					</div>
-					<div class="flex flex-col items-center" @click="save(video)">
+					<div class="flex flex-col items-center drop-shadow" @click="save(video)">
 						<ion-icon :icon="icons.bookmark" class="text-[34px] p-2" :class="{shared: video.shared}"></ion-icon>
 						<p class="m-0">{{saveTxt}}</p>
 					</div>
-					<div class="flex flex-col items-center" @click="share(video)">
+					<div class="flex flex-col items-center drop-shadow" @click="share(video)">
 						<ion-icon :icon="icons.arrowRedo" class="text-[34px] p-2"></ion-icon>
 						<p class="m-0">{{shareTxt}}</p>
 					</div>
