@@ -20,15 +20,11 @@ export default {
 	methods: {
 		async generateRandomMock() { //Load mocks
 			try {		
-				const reply = (await Axios.get("https://gamechangers.wezeo.dev/cms/api/v1/lesson/feed/recommended/")).data.data; //Certified JS moment...
-				for (let i = 0; i < reply.length; i++) {
-					const element = reply[i];
-					if (element.content_shot)
-						this.videos.push({name: element.name, src: element.content_shot, thumbSrc: element.content_thumbnail, likes: element.likes});
-				}
+				const { data: { data: reply } } = await Axios.get("https://gamechangers.wezeo.dev/cms/api/v1/lesson/feed/recommended/");
+				this.videos.push(...reply.filter(element => element.content_shot));
 			}
 			catch (e) {
-				this.toast("BE mate spomaleny ja za to nemozem...", "danger");
+				this.toast(e, "danger");
 			}
 		}
 	},

@@ -2,8 +2,8 @@
 	<swiper v-bind="swiperSettings" class="h-full" @swiper="onSwiper" @slideChange="onSlideChange">
 		<swiper-slide v-for="(video, i) in videos" :key="i">
 			<div class="flex w-full h-full bg-black relative">
-				<video class="w-full object-contain" loop playsinline webkit-playsinline :poster="video.thumbSrc" :ref="'video' + i" @click="toggleActive">
-					<source :src="video.src" type="video/mp4"> 
+				<video class="w-full object-contain" loop playsinline webkit-playsinline :poster="video.content_thumbnail" :ref="`video${i}`" @click="toggleActive">
+					<source :src="video.content_shot" type="video/mp4"> 
 					{{videoUnsupported}}
 				</video>
 				<ion-icon v-if="isActivePaused" :icon="icons.play" class="text-[#eee] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] opacity-50 text-[82px]" @click="toggleActive"></ion-icon>
@@ -12,11 +12,11 @@
 				<div class="flex flex-col items-center text-white absolute bottom-[10%] right-4 swiper-no-swiping">
 					<div class="flex flex-col items-center drop-shadow" @click="like(video)">
 						<ion-icon :icon="icons.heart" class="text-[34px] p-2" :class="{liked: video.liked}"></ion-icon>
-						<p class="m-0">{{video.likes = video.likes == null ? 0 : video.likes}}</p>
+						<p class="m-0">{{video.likes = video.likes ?? 0}}</p>
 					</div>
 					<div class="flex flex-col items-center drop-shadow" @click="comment(video)">
 						<ion-icon :icon="icons.chatbubbleEll" class="text-[34px] p-2"></ion-icon>
-						<p class="m-0">{{video.comments = video.comments == null ? 0 : video.comments}}</p>
+						<p class="m-0">{{video.comments = video.comments ?? 0}}</p>
 					</div>
 					<div class="flex flex-col items-center drop-shadow" @click="save(video)">
 						<ion-icon :icon="icons.bookmark" class="text-[34px] p-2" :class="{shared: video.shared}"></ion-icon>
@@ -70,7 +70,7 @@ export default {
 				this.activeVideo.pause();
 			}
 			
-			if (this.activeVideo = this.$refs["video" + this.swiper.activeIndex])
+			if (this.activeVideo = this.$refs[`video${this.swiper.activeIndex}`])
 			{
 				this.activeVideo = this.activeVideo[0];
 				this.playActive();
@@ -102,7 +102,7 @@ export default {
 		},
 
 		like(video) {
-			video.likes += !(video.liked ^= true) ? -1 : 1;
+			video.likes += (video.liked ^= true) ? 1 : -1;
 		},
 
 		comment(video) {
@@ -115,8 +115,8 @@ export default {
 
 		share(video) {
 			navigator.share({
-				title: video.name == null ? "Video" : video.name,
-				url: video.src
+				title: video.name ?? "Video",
+				url: video.content_shot
 			});
 		}
 	},
